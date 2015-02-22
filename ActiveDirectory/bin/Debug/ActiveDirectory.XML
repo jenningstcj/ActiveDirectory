@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActiveDirectory</name>
+    </assembly>
+    <members>
+        <member name="T:ActiveDirectory.ActiveDirectory">
+            <summary>
+            Class consisting of actions that can be performed against an Active Directory domain
+            </summary>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.#ctor(System.String)">
+            <summary>
+            Creates an instance connected to a single domain
+            </summary>
+            <param name="domain">The name of the domain</param>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.GetAllSecurityGroups">
+            <summary>
+            Returns a list of all Security Groups found in the domain
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.GetGroupDetails(System.String)">
+            <summary>
+            Returns the details of a group including members
+            </summary>
+            <param name="groupSamAccountName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.FindUsersByLastName(System.String)">
+            <summary>
+            Finds all User objects in the domain by lastname/surname
+            </summary>
+            <param name="lastName">The lastname or surname of users that wish to be found</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.GetUserDetails(System.String)">
+            <summary>
+            Returns details of a user for a given username
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.CreateNewUser(ActiveDirectory.Models.User,System.String)">
+            <summary>
+            Create a new user in the domain
+            </summary>
+            <param name="user">Properties of the user to be created.  Properties supported include:
+            FirstName, MiddleName, LastName, DisplayName, SamAccountName(username), Description,
+            TelephoneNumber, EmployeeId, OfficeName, CompanyName, Manager, Department</param>
+            <param name="password">Password to set for user account</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.UnlockUserAccount(System.String)">
+            <summary>
+            Unlocks a user account by username
+            </summary>
+            <param name="username"></param>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.ChangeUserPassword(System.String,System.String)">
+            <summary>
+            Changes a user's password
+            </summary>
+            <param name="distinguishedName">A user's DistinguishedName may be found with FindUsersByLastName() or GetUserDetails()</param>
+            <param name="newPassword">New password</param>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.CheckUsernameAvailability(System.String)">
+            <summary>
+            Checks to see if a username already exists within the domain
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.DisableUserAccount(System.String)">
+            <summary>
+            Disables a user account by the distinguished name
+            </summary>
+            <param name="distinguishedName">A user's DistinguishedName may be found with FindUsersByLastName() or GetUserDetails()</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.EnableUserAccount(System.String)">
+            <summary>
+            Enables a user account by the distinguished name
+            </summary>
+            <param name="distinguishedName">A user's DistinguishedName may be found with FindUsersByLastName() or GetUserDetails()</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.AddUserToGroup(System.String,System.String)">
+            <summary>
+            Adds a user to a group
+            </summary>
+            <param name="userDistinguishedName">A user's DistinguishedName may be found with FindUsersByLastName() or GetUserDetails()</param>
+            <param name="groupDistinguishedName">A group's DistinguishedName may be found with GetAllSecurityGroups() or GetGroupDetails()</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.RemoveUserFromGroup(System.String,System.String)">
+            <summary>
+            Removes a user from a group
+            </summary>
+            <param name="userDistinguishedName">A user's DistinguishedName may be found with FindUsersByLastName() or GetUserDetails()</param>
+            <param name="groupDistinguishedName">A group's DistinguishedName may be found with GetAllSecurityGroups() or GetGroupDetails()</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.MoveUserToNewOU(System.String,System.String)">
+            <summary>
+            Moves a user or group from one OU to another
+            </summary>
+            <param name="userDistinguishedName">Users DistinguishedName may be found with FindUsersByLastName or GetUserDetails</param>
+            <param name="newOU"></param>
+        </member>
+        <member name="T:ActiveDirectory.Models.Group">
+            <summary>
+            Object class for Security/Distrbution groups in Active Directory
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.Description">
+            <summary>
+            Description of group
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.DistinguishedName">
+            <summary>
+            Distinguished name declaring name and location of group
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.Members">
+            <summary>
+            Members of the group
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.SamAccountName">
+            <summary>
+            SamAccountName/Username
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.Group.OU">
+            <summary>
+            Organization Unit
+            </summary>
+        </member>
+        <member name="T:ActiveDirectory.Models.User">
+            <summary>
+            Object class for user accounts in Active Directory
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.BadLogonCount">
+            <summary>
+            Number of failed login attempts
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Description">
+            <summary>
+            Description of user - also used for Title
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.DisplayName">
+            <summary>
+            Display Name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.DistinguishedName">
+            <summary>
+            Distinguished name declaring name and location of the user
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.EmailAddress">
+            <summary>
+            Email Address
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.EmployeeId">
+            <summary>
+            Employee Id
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Enabled">
+            <summary>
+            Bool declaring whether the account is enabled or not.
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.FirstName">
+            <summary>
+            First Name / Given Name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.HomeDirectory">
+            <summary>
+            Path of home directory
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.HomeDrive">
+            <summary>
+            Drive letter of home directory
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.IsAccountLockedOut">
+            <summary>
+            Bool declaring whether the account is locked out or not due to a number of failed login attempts
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.LastBadPasswordAttempt">
+            <summary>
+            Date of last failed login attempt
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.LastLogon">
+            <summary>
+            Date of last successful login attempt
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.LastPasswordSet">
+            <summary>
+            Date of last password reset
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.MiddleName">
+            <summary>
+            Middle Name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Name">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.SamAccountName">
+            <summary>
+            SamAccountName/Username
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.LastName">
+            <summary>
+            Last Name or Surname
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.UserPrincipalName">
+            <summary>
+            UserPrincipalName ie username@domain
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.TelephoneNumber">
+            <summary>
+            Telephone number
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.OfficeName">
+            <summary>
+            Name of Office
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.OU">
+            <summary>
+            Organization Unit
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Groups">
+            <summary>
+            Groups the user belongs to
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.CompanyName">
+            <summary>
+            Company name
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Manager">
+            <summary>
+            Manager
+            </summary>
+        </member>
+        <member name="P:ActiveDirectory.Models.User.Department">
+            <summary>
+            Department
+            </summary>
+        </member>
+    </members>
+</doc>
