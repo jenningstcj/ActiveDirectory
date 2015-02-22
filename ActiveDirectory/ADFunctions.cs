@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.Text;
 
 namespace ActiveDirectory
 {
@@ -388,8 +389,33 @@ namespace ActiveDirectory
             catch (Exception) { return false; }
         }
 
-
-        //TODO: GET LIST OF OU'S
+        /// <summary>
+        /// Returns a list of all Organizational Units within the domain
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetOUs()
+        {
+            StringBuilder root = new StringBuilder();
+            root.Append("LDAP://");
+            for (int i = 0; i < _domainName.Split('.').Length; i++)
+            {
+                root.Append("DC=" + _domainName.Split('.')[i]);
+                if (i < _domainName.Split('.').Length)
+                    root.Append(",");
+            }
+            List<string> ous = new List<string>();
+            using (DirectoryEntry de = new DirectoryEntry(root.ToString()))
+            {
+                using (DirectorySearcher ds = new DirectorySearcher("(objectCategory=organizationalUnit)"))
+                {
+                    foreach (SearchResult item in ds.FindAll())
+                    {
+                        ous.Add(item.Path.Substring(7)); //removes the LDAP:// beginning
+                    }
+                }
+            }
+            return ous;
+        }
 
         /// <summary>
         /// Moves a user or group from one OU to another

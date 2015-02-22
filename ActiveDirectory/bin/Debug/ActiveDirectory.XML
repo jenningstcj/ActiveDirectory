@@ -102,6 +102,12 @@
             <param name="groupDistinguishedName">A group's DistinguishedName may be found with GetAllSecurityGroups() or GetGroupDetails()</param>
             <returns></returns>
         </member>
+        <member name="M:ActiveDirectory.ActiveDirectory.GetOUs">
+            <summary>
+            Returns a list of all Organizational Units within the domain
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ActiveDirectory.ActiveDirectory.MoveUserToNewOU(System.String,System.String)">
             <summary>
             Moves a user or group from one OU to another
